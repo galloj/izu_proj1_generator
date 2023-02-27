@@ -30,7 +30,8 @@ míst do příslušné buňky). Nepřekročitelné buňky mají hodnotu "Z" (jak
 hodnoty seznamů Open a Closed. Do pomocné tabulky s ohodnocením uzlů zapisujte aktuálně zkoumaný uzel,
 cenu cesty do aktuálního uzlu „g“, heuristiku „h“ a celkovou cenu cesty „f“. Heuristiku počítejte jako přímou
 vzdálenost středů dvou buněk, kde velikost strany jedné buňky je rovna jedné. Uzly generujte v pořadí zleva
-doprava a shora dolů, uvažujte 8-okolí buňky (tzn. operátory ↖,↑,↗,←,→,↙,↓,↘). Výslednou cestu zapište
+doprava a shora dolů, uvažujte 8-okolí buňky
+(tzn. operátory $\nwarrow,\uparrow,\nearrow,\leftarrow, \rightarrow,\swarrow,\downarrow,\searrow)$. Výslednou cestu zapište
 do tabulky Výsledná cesta. Uzel se skládá ze souřadnic, z ohodnocení f a souřadnic uzlu, ze kterého byl vyge-
 nerován nebo z operátoru, který byl použit (aby bylo možné nalézt cestu od startu k cíli).
 
