@@ -106,8 +106,8 @@ def get_latex():
     a=["01.", "02.", "03.", "04.", "05.", "06.", "07.", "08.", "09.", "10.", "11.", "12.", "13.", "14.", "15."]
     b=["16.", "17.", "18.", "19.", "20.", "21.", "22.", "23.", "24.", "25.", "26.", "27.", "28.", "29.", "30."]
     pomocna_tmp = zip(a, pomocna_tmp[:15], b, pomocna_tmp[15:])
-    pomocna_tmp = [[x[0], *x[1], x[2], *x[3]] for x in pomocna_tmp]
-    ret = ret.replace('!POMOCNATABULKA!', " \\\\\n".join([" & ".join(map(str,x)) for x in pomocna_tmp])+" \\\\\n")
+    pomocna_tmp = [[f"{y: .2f}" if type(y) == float else str(y) for y in [x[0], *x[1], x[2], *x[3]]] for x in pomocna_tmp]
+    ret = ret.replace('!POMOCNATABULKA!', " \\\\\n".join([" & ".join(x) for x in pomocna_tmp])+" \\\\\n")
     its = ""
     for x in range(16):
         s = r"""% https://tex.stackexchange.com/a/186191
