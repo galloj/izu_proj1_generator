@@ -32,8 +32,8 @@ cenu cesty do aktuálního uzlu „g“, heuristiku „h“ a celkovou cenu cest
 vzdálenost středů dvou buněk, kde velikost strany jedné buňky je rovna jedné. Uzly generujte v pořadí zleva
 doprava a shora dolů, uvažujte 8-okolí buňky
 (tzn. operátory $\nwarrow,\uparrow,\nearrow,\leftarrow, \rightarrow,\swarrow,\downarrow,\searrow)$. Výslednou cestu zapište
-do tabulky Výsledná cesta. Uzel se skládá ze souřadnic, z ohodnocení f a souřadnic uzlu, ze kterého byl vyge-
-nerován nebo z operátoru, který byl použit (aby bylo možné nalézt cestu od startu k cíli).
+do tabulky Výsledná cesta. Uzel se skládá ze souřadnic, z ohodnocení f a souřadnic uzlu, ze kterého byl vygenerován
+nebo z operátoru, který byl použit (aby bylo možné nalézt cestu od startu k cíli).
 
 
 
@@ -89,6 +89,28 @@ iterace = []
 # [(x, y), ...]
 vysledna_cesta = []
 
+def ser(obj):
+    out = ""
+    if type(obj) == tuple:
+        out += "("
+        for x in obj:
+            out += ser(x) + ", "
+        if len(out) > 1:
+            out = out[:-2]
+        out += ")"
+    elif type(obj) == list:
+        out += "["
+        for x in obj:
+            out += ser(x) + ", "
+        if len(out) > 1:
+            out = out[:-2]
+        out += "]"
+    elif type(obj) == float:
+        out += f"{obj:.2f}"
+    else:
+        out += str(obj)
+    return out
+
 def get_latex():
     assert name is not None
     assert login is not None
@@ -106,7 +128,7 @@ def get_latex():
     a=["01.", "02.", "03.", "04.", "05.", "06.", "07.", "08.", "09.", "10.", "11.", "12.", "13.", "14.", "15."]
     b=["16.", "17.", "18.", "19.", "20.", "21.", "22.", "23.", "24.", "25.", "26.", "27.", "28.", "29.", "30."]
     pomocna_tmp = zip(a, pomocna_tmp[:15], b, pomocna_tmp[15:])
-    pomocna_tmp = [[f"{y: .2f}" if type(y) == float else str(y) for y in [x[0], *x[1], x[2], *x[3]]] for x in pomocna_tmp]
+    pomocna_tmp = [[ser(y) for y in [x[0], *x[1], x[2], *x[3]]] for x in pomocna_tmp]
     ret = ret.replace('!POMOCNATABULKA!', " \\\\\n".join([" & ".join(x) for x in pomocna_tmp])+" \\\\\n")
     its = ""
     for x in range(16):
@@ -120,8 +142,8 @@ Closed: CLOSED
 
 """
         if x < len(iterace):
-            s = s.replace('OPEN', str(iterace[x][0]))
-            s = s.replace('CLOSED', str(iterace[x][1]))
+            s = s.replace('OPEN', ser(iterace[x][0]))
+            s = s.replace('CLOSED', ser(iterace[x][1]))
         else:
             s = s.replace('OPEN', '')
             s = s.replace('CLOSED', '')
